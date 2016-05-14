@@ -2,6 +2,8 @@ import React from 'react';
 import React3 from 'react-three-renderer';
 import THREE from 'three';
 
+import FacebookTimeline from 'components/FacebookTimeline';
+
 export default class AppComponent extends React.Component {
 
     componentDidMount() {
@@ -43,7 +45,8 @@ export default class AppComponent extends React.Component {
                             aspect={width / height}
                             near={0.1}
                             far={1000}
-                            position={new THREE.Vector3(-0.5, 2, -2)}
+                            position={new THREE.Vector3(-1, 3, 7)}
+                            lookAt={new THREE.Vector3(0, 2, 0)}
                         >
                             <pointLight
                                 color={0xffffff}
@@ -58,6 +61,8 @@ export default class AppComponent extends React.Component {
                             name="axisHelper"
                             position={new THREE.Vector3()}
                         />
+
+                        <FacebookTimeline />
                     </scene>
                 </React3>
             </div>
