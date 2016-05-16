@@ -1,5 +1,6 @@
 import React from 'react';
 import THREE from 'three';
+import Html3D from './utils/Html3D';
 
 export default class FacebookTimeline extends React.Component
 {
@@ -8,18 +9,7 @@ export default class FacebookTimeline extends React.Component
 
         return (
             <group ref="facebook-timeline">
-                <mesh
-                    ref="box"
-                    position={new THREE.Vector3(0, 2, 0)}
-                >
-                    <boxGeometry
-                        width={1}
-                        height={1}
-                        depth={1}
-                    />
-
-                    <meshBasicMaterial />
-                </mesh>
+                <Html3D scene={this.props.scene} />
             </group>
         );
     }

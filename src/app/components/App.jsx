@@ -62,7 +62,7 @@ export default class AppComponent extends React.Component {
                             position={new THREE.Vector3()}
                         />
 
-                        <FacebookTimeline />
+                        <FacebookTimeline scene={this.refs.scene} />
                     </scene>
                 </React3>
             </div>
