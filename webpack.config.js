@@ -17,6 +17,7 @@ module.exports = {
         alias:{
             app: path.resolve( __dirname, './src/app'),
             components: path.resolve( __dirname, './src/app/components'),
+            library: path.resolve( __dirname, './library')
         },
         extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
     },
