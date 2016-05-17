@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import React3 from 'react-three-renderer';
 import THREE from 'three';
+import EditorControls from 'library/EditorControls';
+
 import FacebookTimeline from 'components/FacebookTimeline';
 
 export default class AppComponent extends React.Component {
 
     state = {
-        frameNumber: 0
+        frameNumber: 0,
+        cameraPosition: new THREE.Vector3(0, 200, 600),
+        cameraRotation: new THREE.Euler(0, 0, 0),
     };
 
     groundQuaternion = new THREE.Quaternion()
@@ -23,11 +27,12 @@ export default class AppComponent extends React.Component {
         this.cssRenderer.setSize( window.innerWidth, window.innerHeight );
         this.cssRenderer.domElement.style.position = 'absolute';
         this.cssRenderer.domElement.style.top = 0;
-
         document.body.appendChild(this.cssRenderer.domElement);
 
-        let HTMLElement = this.refs.button;
-
+        // Attach controls
+        const {camera} = this.refs;
+        this.controls = new EditorControls(camera);
+        this.controls.addEventListener('change', this._onControlsChange);
     }
 
     /**
@@ -40,6 +45,18 @@ export default class AppComponent extends React.Component {
         this.refs.gridHelper.add(gridHelper);
     }
 
+    /**
+     * Fired when controls is updated
+     */
+    _onControlsChange = () => {
+        let newState = this.state;
+
+        // Clone new cam position/rotation to state
+        newState.cameraPosition = this.refs.camera.position.clone();
+        newState.cameraRotation =  this.refs.camera.rotation.clone();
+
+        this.setState(newState);
+    };
 
     _onAnimate = () => {
         this.setState({
@@ -112,8 +129,8 @@ export default class AppComponent extends React.Component {
                             aspect={width / height}
                             near={1}
                             far={10000}
-                            position={new THREE.Vector3(-1, 300, 500)}
-                            lookAt={new THREE.Vector3(0, 2, 0)}
+                            position={this.state.cameraPosition}
+                            rotation={this.state.cameraRotation}
                         >
                             <pointLight
                                 color={0xffffff}
@@ -130,7 +147,6 @@ export default class AppComponent extends React.Component {
 
                             shadowMapWidth={1024}
                             shadowMapHeight={1024}
-                            shadowCameraVisible={true}
                             shadowCameraLeft={-d}
                             shadowCameraRight={d}
                             shadowCameraTop={d}
