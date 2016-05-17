@@ -12,18 +12,19 @@ export default class Html3D extends React.Component
 
     static defaultProps = {
         position: new THREE.Vector3(),
-        rotation: new THREE.Euler(),
+        rotation: new THREE.Euler(10*Math.PI/180 ,20*Math.PI/180 ,0),
         HTMLElement: document.createElement('div')
     };
 
     constructor(props, context) {
         super(props, context);
 
-        let element = document.createElement( 'img' );
-        element.src = 'images/texture.jpg';
+        let element = document.createElement( 'div' );
+        element.innerHTML = 'Hellow World !';
 
         this.HTMLElement = element;
     }
+
 
     componentDidMount() {
         this._createCSS3DObject();
@@ -33,6 +34,8 @@ export default class Html3D extends React.Component
 
     _createCSS3DObject() {
         let CSS3DObject = new THREE.CSS3DObject(this.HTMLElement);
+        CSS3DObject.name = "css3D";
+
         this.refs.group.add(CSS3DObject);
 
     }
@@ -42,15 +45,18 @@ export default class Html3D extends React.Component
     render() {
 
         return (
-            <group ref="group">
+
+            <group
+                ref="group"
+                position={this.props.position}
+                rotation={this.props.rotation}
+            >
                 <mesh
                     ref="mesh"
-                    position={this.props.position}
-                    rotation={this.props.rotation}
                 >
                     <planeGeometry
-                        width={3}
-                        height={3}
+                        width={300}
+                        height={300}
                         widthSegments={10}
                         heightSegments={10}
                     />
@@ -60,19 +66,20 @@ export default class Html3D extends React.Component
 
                 <mesh
                     ref="CSS3D"
-                    position={this.props.position}
-                    rotation={this.props.rotation}
                 >
                     <planeGeometry
-                        width={1}
-                        height={1}
+                        width={100}
+                        height={100}
                         widthSegments={10}
                         heightSegments={10}
                     />
 
                     <meshBasicMaterial wireframe={true} />
                 </mesh>
+
             </group>
+
+
         );
     }
 }
