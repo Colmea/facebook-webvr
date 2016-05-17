@@ -9,6 +9,7 @@
     "react-tap-event-plugin": "^0.2.2",
     "react-three-renderer": "^0.1.2",
     "react-vendor-prefix": "0.0.1",
+    "material-ui": "^0.14.4",
     "three": "^0.75.0",
     "webpack": "^1.12.14"
   },
