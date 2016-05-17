@@ -18,12 +18,29 @@ import CardText from 'material-ui/lib/card/card-text';
 
 import AccountFace from 'material-ui/lib/svg-icons/action/account-circle';
 import LikeIcon from 'material-ui/lib/svg-icons/action/thumb-up';
+import CommentIcon from 'material-ui/lib/svg-icons/communication/message';
+import Shareicon from 'material-ui/lib/svg-icons/social/share';
 
 
 export default class Post extends React.Component
 {
-    render() {
+    styleButton = {
+        color: '#ddd'
+    };
 
+    onLike = () => {
+        alert('Like event');
+    };
+
+    onComment = () => {
+        alert('Comment event');
+    };
+
+    onShare = () => {
+        alert('Share event');
+    };
+
+    render() {
 
         return (
             <Html3D {...this.props}>
@@ -42,9 +59,24 @@ export default class Post extends React.Component
                                 Mmyeah, pretty cool...
                             </CardText>
                             <CardActions expandable={true}>
-                                <FlatButton style={{color: '#ddd'}} icon={<LikeIcon />} label="J'aime"/>
-                                <FlatButton style={{color: '#ddd'}} label="Commenter"/>
-                                <FlatButton style={{color: '#ddd'}} label="Partager"/>
+                                <FlatButton
+                                    label="Like"
+                                    onClick={this.onLike}
+                                    icon={<LikeIcon />}
+                                    style={this.styleButton}
+                                />
+                                <FlatButton
+                                    label="Comment"
+                                    onClick={this.onComment}
+                                    icon={<CommentIcon />}
+                                    style={this.styleButton}
+                                />
+                                <FlatButton
+                                    label="Share"
+                                    onClick={this.onShare}
+                                    icon={<Shareicon />}
+                                    style={this.styleButton}
+                                />
                             </CardActions>
                         </Card>
                 </ReactCSSTransitionGroup>
