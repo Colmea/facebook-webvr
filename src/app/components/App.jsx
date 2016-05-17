@@ -10,6 +10,11 @@ export default class AppComponent extends React.Component {
         frameNumber: 0
     };
 
+    groundQuaternion = new THREE.Quaternion()
+        .setFromAxisAngle(new THREE.Vector3(1, 0, 0), Math.PI / 2);
+
+    fog = new THREE.Fog(0xf0f0f0, 500, 10000);
+
     componentDidMount() {
         this._createDefaultEnvironment();
 
@@ -51,6 +56,7 @@ export default class AppComponent extends React.Component {
 
         const width = window.innerWidth; // canvas width
         const height = window.innerHeight; // canvas height
+        const d = 20;
 
         return (
             <div id="container-app">
@@ -58,22 +64,54 @@ export default class AppComponent extends React.Component {
                     mainCamera="camera"
                     width={width}
                     height={height}
-                    clearColor={0xf0f0f0}
+                    clearColor={this.fog.color}
                     gammaInput
                     gammaOutput
-                    shadowMapEnabled
+                    shadowMapEnabled={true}
+                    shadowMapDebug={true}
                     antialias={true}
                     onAnimate={this._onAnimate}
 
                 >
-                    <scene ref="scene">
+                    <scene ref="scene" fog={this.fog}>
+                        <resources>
+                            <texture
+                                resourceId="basicTexture"
+                                url="images/texture.jpg"
+                                wrapS={THREE.RepeatWrapping}
+                                wrapT={THREE.RepeatWrapping}
+                                repeat={new THREE.Vector2(1, 1)}
+                            />
+                            <texture
+                            resourceId="groundTexture"
+                            url="images/ground.jpg"
+                            wrapS={THREE.RepeatWrapping}
+                            wrapT={THREE.RepeatWrapping}
+                            repeat={new THREE.Vector2(5, 5)}
+                            />
+
+                            <meshPhongMaterial
+                                resourceId="groundMaterial"
+                                side={THREE.DoubleSide}
+                            >
+                                <textureResource resourceId="groundTexture" />
+                            </meshPhongMaterial>
+
+                            <meshPhongMaterial
+                                resourceId="basicMaterial"
+                                side={THREE.DoubleSide}
+                            >
+                                <textureResource resourceId="basicTexture" />
+                            </meshPhongMaterial>
+                        </resources>
+
                         <perspectiveCamera
                             name="camera"
                             ref="camera"
                             fov={75}
                             aspect={width / height}
                             near={1}
-                            far={1000000}
+                            far={10000}
                             position={new THREE.Vector3(-1, 300, 500)}
                             lookAt={new THREE.Vector3(0, 2, 0)}
                         >
@@ -83,7 +121,26 @@ export default class AppComponent extends React.Component {
                                 position={this.lightPosition}
                             />
                         </perspectiveCamera>
-                        <ambientLight color={0x505050} />
+
+                        <directionalLight
+                            color={0xffffff}
+                            intensity={1.75}
+
+                            castShadow={true}
+
+                            shadowMapWidth={1024}
+                            shadowMapHeight={1024}
+                            shadowCameraVisible={true}
+                            shadowCameraLeft={-d}
+                            shadowCameraRight={d}
+                            shadowCameraTop={d}
+                            shadowCameraBottom={-d}
+
+                            shadowCameraFar={100 * d}
+                            shadowCameraNear={d}
+
+                            position={new THREE.Vector3(200, 200, 0)}
+                        />
 
                         <object3D ref="gridHelper" />
                         <axisHelper
@@ -91,10 +148,25 @@ export default class AppComponent extends React.Component {
                             position={new THREE.Vector3()}
                         />
 
-                        <FacebookTimeline ref="facebookTimeline" callbackElement={this.callbackElement} frameNumber={this.state.frameNumber} />
+                        <FacebookTimeline ref="facebookTimeline" frameNumber={this.state.frameNumber} />
                     </scene>
                 </React3>
             </div>
         );
     }
 }
+
+//<mesh
+//    castShadow={false}
+//    receiveShadow={true}
+//    quaternion={this.groundQuaternion}
+//    position={new THREE.Vector3(0, 1, 0)}
+//>
+//    <planeBufferGeometry
+//        width={1000}
+//        height={1000}
+//        widthSegments={1}
+//        heightSegments={1}
+//    />
+//    <materialResource resourceId="groundMaterial" />
+//</mesh>
