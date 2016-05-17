@@ -1,10 +1,14 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import React3 from 'react-three-renderer';
 import THREE from 'three';
-
 import FacebookTimeline from 'components/FacebookTimeline';
 
 export default class AppComponent extends React.Component {
+
+    state = {
+        frameNumber: 0
+    };
 
     componentDidMount() {
         this._createDefaultEnvironment();
@@ -16,6 +20,9 @@ export default class AppComponent extends React.Component {
         this.cssRenderer.domElement.style.top = 0;
 
         document.body.appendChild(this.cssRenderer.domElement);
+
+        let HTMLElement = this.refs.button;
+
     }
 
     /**
@@ -30,6 +37,9 @@ export default class AppComponent extends React.Component {
 
 
     _onAnimate = () => {
+        this.setState({
+            frameNumber: this.state.frameNumber + 1
+        })
 
         let scene = this.refs.scene;
         let camera = this.refs.camera;
@@ -81,7 +91,7 @@ export default class AppComponent extends React.Component {
                             position={new THREE.Vector3()}
                         />
 
-                        <FacebookTimeline scene={this.refs.scene} />
+                        <FacebookTimeline ref="facebookTimeline" callbackElement={this.callbackElement} frameNumber={this.state.frameNumber} />
                     </scene>
                 </React3>
             </div>
