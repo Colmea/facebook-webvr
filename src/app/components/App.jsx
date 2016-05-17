@@ -8,6 +8,14 @@ export default class AppComponent extends React.Component {
 
     componentDidMount() {
         this._createDefaultEnvironment();
+
+        // Create CSS3D Renderer
+        this.cssRenderer = new THREE.CSS3DRenderer();
+        this.cssRenderer.setSize( window.innerWidth, window.innerHeight );
+        this.cssRenderer.domElement.style.position = 'absolute';
+        this.cssRenderer.domElement.style.top = 0;
+
+        document.body.appendChild(this.cssRenderer.domElement);
     }
 
     /**
@@ -16,9 +24,18 @@ export default class AppComponent extends React.Component {
      */
     _createDefaultEnvironment(): void {
         // Create grid Helper
-        let gridHelper = new THREE.GridHelper( 50, 1);
+        let gridHelper = new THREE.GridHelper( 50000, 100);
         this.refs.gridHelper.add(gridHelper);
     }
+
+
+    _onAnimate = () => {
+
+        let scene = this.refs.scene;
+        let camera = this.refs.camera;
+
+        this.cssRenderer.render(scene, camera);
+    };
 
     render() {
 
@@ -36,6 +53,8 @@ export default class AppComponent extends React.Component {
                     gammaOutput
                     shadowMapEnabled
                     antialias={true}
+                    onAnimate={this._onAnimate}
+
                 >
                     <scene ref="scene">
                         <perspectiveCamera
@@ -43,9 +62,9 @@ export default class AppComponent extends React.Component {
                             ref="camera"
                             fov={75}
                             aspect={width / height}
-                            near={0.1}
-                            far={1000}
-                            position={new THREE.Vector3(-1, 3, 7)}
+                            near={1}
+                            far={1000000}
+                            position={new THREE.Vector3(-1, 300, 500)}
                             lookAt={new THREE.Vector3(0, 2, 0)}
                         >
                             <pointLight
