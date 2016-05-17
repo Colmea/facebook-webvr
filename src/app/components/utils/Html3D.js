@@ -39,7 +39,18 @@ export default class Html3D extends React.Component
                 position={this.props.position}
                 rotation={this.props.rotation}
             >
-
+            <mesh
+                receiveShadow={true}
+                castShadow={true}
+            >
+                <planeGeometry
+                    width={500}
+                    height={220}
+                    widthSegments={10}
+                    heightSegments={10}
+                />
+                <meshBasicMaterial wireframe={true} />
+            </mesh>
             </group>
         );
     }
