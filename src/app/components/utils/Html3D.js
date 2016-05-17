@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import CSS3DRenderer from '../../../../library/CSS3DRenderer';
 import THREE from 'three';
 
@@ -6,80 +7,40 @@ export default class Html3D extends React.Component
 {
     static propTypes = {
         position: React.PropTypes.instanceOf(THREE.Vector3),
-        rotation: React.PropTypes.instanceOf(THREE.Euler),
-        HTMLElement: React.PropTypes.any,
+        rotation: React.PropTypes.instanceOf(THREE.Euler)
     };
 
     static defaultProps = {
         position: new THREE.Vector3(),
-        rotation: new THREE.Euler(10*Math.PI/180 ,20*Math.PI/180 ,0),
-        HTMLElement: document.createElement('div')
+        rotation: new THREE.Euler()
     };
 
-    constructor(props, context) {
-        super(props, context);
-
-        let element = document.createElement( 'div' );
-        element.innerHTML = 'Hellow World !';
-
-        this.HTMLElement = element;
-    }
-
-
     componentDidMount() {
-        this._createCSS3DObject();
+        // Create DOM element with ReactDOM
+        this.HTMLElement = document.createElement('div');
+        ReactDOM.render(this.props.children, this.HTMLElement);
 
+        this._createCSS3DObject();
     }
 
-
+    /**
+     * Create the CSS3D object from HTMLElement property
+     * @private
+     */
     _createCSS3DObject() {
         let CSS3DObject = new THREE.CSS3DObject(this.HTMLElement);
-        CSS3DObject.name = "css3D";
-
         this.refs.group.add(CSS3DObject);
-
     }
 
-
-
     render() {
-
         return (
-
             <group
                 ref="group"
                 position={this.props.position}
                 rotation={this.props.rotation}
             >
-                <mesh
-                    ref="mesh"
-                >
-                    <planeGeometry
-                        width={300}
-                        height={300}
-                        widthSegments={10}
-                        heightSegments={10}
-                    />
-
-                    <meshBasicMaterial wireframe={true} />
-                </mesh>
-
-                <mesh
-                    ref="CSS3D"
-                >
-                    <planeGeometry
-                        width={100}
-                        height={100}
-                        widthSegments={10}
-                        heightSegments={10}
-                    />
-
-                    <meshBasicMaterial wireframe={true} />
-                </mesh>
 
             </group>
-
-
         );
     }
 }
