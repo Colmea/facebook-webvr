@@ -24,6 +24,8 @@ export default class FacebookTimeline extends React.Component
         return (
             <group ref="facebook-timeline">
                 <Post position={new THREE.Vector3(0, 100, -100)} rotation={rotation} />
+                <Post position={new THREE.Vector3(600, 300, -1000)} rotation={rotation} />
+                <Post position={new THREE.Vector3(-800, 500, -800)} rotation={rotation} />
             </group>
         );
     }
