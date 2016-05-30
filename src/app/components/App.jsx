@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import React3 from 'react-three-renderer';
 import THREE from 'three';
 import EditorControls from 'library/EditorControls';
