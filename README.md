@@ -1,5 +1,7 @@
 # WebVR Facebook
 
+![](http://i.makeagif.com/media/5-30-2016/9T8m5u.gif)
+
 This repository is an experiment for a web Facebook world in 3D with React.js, Three.js and WebVR technology with Oculus Rift, Google Cardboard and HTC Vive (well, when I have the device). 
 
 ## How it works
