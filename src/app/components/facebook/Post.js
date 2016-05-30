@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import THREE from 'three';
-import Html3D from '../utils/Html3D';
+import HTML3D from 'react-three-renderer-html3d/lib/HTML3D';
 
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
@@ -43,7 +43,7 @@ export default class Post extends React.Component
     render() {
 
         return (
-            <Html3D {...this.props}>
+            <HTML3D {...this.props}>
                 <ReactCSSTransitionGroup transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName="post" transitionAppear={true} transitionAppearTimeout={500}>
                         <Card style={{width: '500px', opacity: 0.9 }} initiallyExpanded={true}>
                             <CardHeader
@@ -80,7 +80,7 @@ export default class Post extends React.Component
                             </CardActions>
                         </Card>
                 </ReactCSSTransitionGroup>
-            </Html3D>
+            </HTML3D>
         );
     }
 }
