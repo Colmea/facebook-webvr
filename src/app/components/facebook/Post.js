@@ -44,8 +44,7 @@ export default class Post extends React.Component
                                 avatar="https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-1/c16.19.155.155/s32x32/380108_2617196464115_1292327190_n.jpg?oh=f3e5a7f5e96e5f7851f5b09e85010bbe&oe=57A276FF"
                             />
                             <CardText expandable={true} initiallyExpanded={true}>
-                                So you're saying I can add almost any React component in my 3D world, huh ?<br />
-                                Mmyeah, pretty cool...
+                                {this.props.children}
                             </CardText>
                             <CardActions expandable={true}>
                                 <FlatButton
