@@ -36,7 +36,7 @@ export default class FacebookTimeline extends React.Component
                 <Post
                     key={post.id}
                     post={post}
-                    position={new THREE.Vector3(index * 500, index * 200, (index+1) * -300)}
+                    position={new THREE.Vector3(index * 500, 0, (index+1) * -300)}
                     rotation={rotation}
                 />
             );
