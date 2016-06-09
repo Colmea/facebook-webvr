@@ -7,13 +7,14 @@ class PostStoreDefinition {
         {
             id: '1',
             type: 'status',
-            content: "Foo Fighters FTW",
+            content: "Inception :o",
             url: 'http://localhost:3000'
         },
         {
             id: '2',
             type: 'status',
-            content: 'Bonjour à tous, voici mon premier post'
+            content: 'Foo Fighter FTW',
+            url: 'https://www.youtube.com/embed/SBjQ9tuuTJQ'
         }
 
     ];

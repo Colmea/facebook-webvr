@@ -13,6 +13,15 @@ import Shareicon from 'material-ui/lib/svg-icons/social/share';
 
 export default class Post extends React.Component
 {
+    static propTypes = {
+        post: React.PropTypes.object
+    };
+
+    static defaultProps = {
+        frameNumber: 0,
+        posts: []
+    };
+
     styleButton = {
         color: '#ddd'
     };
@@ -30,6 +39,15 @@ export default class Post extends React.Component
     };
 
     render() {
+        const post = this.props.post;
+        let iframe;
+
+        if (post.url) {
+            iframe = (
+                <iframe width="465" height="315" src={post.url} frameBorder="0" allowFullScreen></iframe>
+            );
+        }
+
 
         return (
             <HTML3D {...this.props}>
@@ -44,7 +62,8 @@ export default class Post extends React.Component
                                 avatar="https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-1/c16.19.155.155/s32x32/380108_2617196464115_1292327190_n.jpg?oh=f3e5a7f5e96e5f7851f5b09e85010bbe&oe=57A276FF"
                                 />
                                 <CardText expandable={true} initiallyExpanded={true}>
-                                    {this.props.children}
+                                    {this.props.post.content}
+                                    {iframe}
                                 </CardText>
                                 <CardActions expandable={true}>
                                     <FlatButton
