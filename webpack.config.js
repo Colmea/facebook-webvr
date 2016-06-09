@@ -16,8 +16,10 @@ module.exports = {
     resolve: {
         alias:{
             app: path.resolve( __dirname, './src/app'),
+            library: path.resolve( __dirname, './library'),
             components: path.resolve( __dirname, './src/app/components'),
-            library: path.resolve( __dirname, './library')
+            actions: path.resolve( __dirname, './src/app/actions'),
+            stores: path.resolve( __dirname, './src/app/stores')
         },
         extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
     },
