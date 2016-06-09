@@ -5,6 +5,7 @@
   "main": "src/main.js",
   "dependencies": {
     "alt": "^0.18.4",
+    "alt-container": "^1.0.2",
     "babel-loader": "^6.2.4",
     "material-ui": "^0.14.4",
     "react-addons-css-transition-group": "^0.14.7",

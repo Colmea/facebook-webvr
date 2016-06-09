@@ -1,8 +1,10 @@
 import React from 'react';
 import React3 from 'react-three-renderer';
 import THREE from 'three';
-import EditorControls from 'library/EditorControls';
+import AltContainer from 'alt-container';
 
+import PostStore from 'stores/PostStore';
+import EditorControls from 'library/EditorControls';
 import FacebookTimeline from 'components/FacebookTimeline';
 
 export default class AppComponent extends React.Component {
@@ -163,7 +165,9 @@ export default class AppComponent extends React.Component {
                             position={new THREE.Vector3()}
                         />
 
-                        <FacebookTimeline ref="facebookTimeline" frameNumber={this.state.frameNumber} />
+                        <AltContainer store={PostStore}>
+                            <FacebookTimeline ref="facebookTimeline" frameNumber={this.state.frameNumber} />
+                        </AltContainer>
                     </scene>
                 </React3>
             </div>
