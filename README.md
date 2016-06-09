@@ -18,7 +18,7 @@ This repository is still a work in progress:
 
 * [x] React + Three.js environment
 * [x] HTML3D component (CSS3D transformation in a React component)
-* [ ] Alt.js structure
+* [x] Alt.js structure
 * [ ] Facebook API
 * [ ] Facebook's Post, Video, Comment and Notifications
 * [ ] WebVR
