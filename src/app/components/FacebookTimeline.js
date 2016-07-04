@@ -15,18 +15,29 @@ export default class FacebookTimeline extends React.Component
     };
 
     render() {
-        let rotationY = (this.props.frameNumber % (360 * 10)) / 4000;
-        let rotation = new THREE.Euler(0, rotationY, 0);
 
         let posts = [];
 
         // Create Facebook posts
         this.props.posts.forEach((post, index) => {
+            const angleOffset = 30;
+            const distance = 1000;
+
+            const angle = angleOffset * index * (Math.PI / 180);
+
+            let position = new THREE.Vector3(
+                -distance  * Math.cos(angle),
+                0,
+                -distance  * Math.sin(angle)
+            );
+
+            let rotation = new THREE.Euler(0, -(angleOffset * index - 90) * (Math.PI/180), 0);
+
             posts.push(
                 <Post
                     key={post.id}
                     post={post}
-                    position={new THREE.Vector3(index * 500, index * 200, (index+1) * -300)}
+                    position={position}
                     rotation={rotation}
                 />
             );
