@@ -3,6 +3,7 @@ import React3 from 'react-three-renderer';
 import THREE from 'three';
 import AltContainer from 'alt-container';
 
+import FacebookStore from 'stores/FacebookStore';
 import PostStore from 'stores/PostStore';
 import EditorControls from 'library/EditorControls';
 import FacebookTimeline from 'components/FacebookTimeline';
@@ -107,6 +108,13 @@ export default class AppComponent extends React.Component {
                             wrapT={THREE.RepeatWrapping}
                             repeat={new THREE.Vector2(5, 5)}
                             />
+                            <texture
+                                resourceId="facebookTexture"
+                                url="images/textures/facebook.png"
+                                wrapS={THREE.RepeatWrapping}
+                                wrapT={THREE.RepeatWrapping}
+                                repeat={new THREE.Vector2(1, 1)}
+                            />
 
                             <meshPhongMaterial
                                 resourceId="groundMaterial"
@@ -120,6 +128,13 @@ export default class AppComponent extends React.Component {
                                 side={THREE.DoubleSide}
                             >
                                 <textureResource resourceId="basicTexture" />
+                            </meshPhongMaterial>
+
+                            <meshPhongMaterial
+                                resourceId="facebookMaterial"
+                                side={THREE.DoubleSide}
+                            >
+                                <textureResource resourceId="facebookTexture" />
                             </meshPhongMaterial>
                         </resources>
 
@@ -165,7 +180,7 @@ export default class AppComponent extends React.Component {
                             position={new THREE.Vector3()}
                         />
 
-                        <AltContainer store={PostStore}>
+                        <AltContainer stores={{ FacebookStore: FacebookStore, PostStore: PostStore }}>
                             <FacebookTimeline ref="facebookTimeline" frameNumber={this.state.frameNumber} />
                         </AltContainer>
                     </scene>
