@@ -40,6 +40,7 @@ export default class Post extends React.Component
 
     render() {
         const post = this.props.post;
+        const timeElapsed = Math.ceil((Date.now() - new Date(post['created_time'])) / (60000 * 3600));
         let iframe;
 
         // If post has link, add it in iframe
@@ -54,8 +55,8 @@ export default class Post extends React.Component
                 <ReactCSSTransitionGroup transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName="post" transitionAppear={true} transitionAppearTimeout={500}>
                         <Card style={{width: '500px', opacity: 0.9 }} initiallyExpanded={true}>
                             <CardHeader
-                                title="Arthur Schwaiger"
-                                subtitle="13 min"
+                                title={post.from.name}
+                                subtitle={timeElapsed + " h"}
                                 actAsExpander={true}
                                 showExpandableButton={true}
                                 initiallyExpanded={true}

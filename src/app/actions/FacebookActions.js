@@ -13,7 +13,7 @@ class FacebookAction {
 
                 // Fetch last user's posts
                 FB.api(
-                    "/me/feed?fields=link,message&limit=10",
+                    "/me/feed?fields=link,message,created_time,from,object_id&limit=10",
                     function (response) {
                         if (response && !response.error) {
                             PostActions.add.defer(response.data);
