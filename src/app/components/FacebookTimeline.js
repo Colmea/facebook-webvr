@@ -31,8 +31,8 @@ export default class FacebookTimeline extends React.Component
         let posts = [];
 
         // Create Facebook posts
-        this.props.posts.forEach((post, index) => {
-            const angleOffset = 30;
+        this.props.PostStore.posts.forEach((post, index) => {
+            const angleOffset = 35;
             const distance = 1000;
 
             const angle = angleOffset * index * (Math.PI / 180);
