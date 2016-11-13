@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import HTML3D from 'react-three-renderer-html3d/lib/HTML3D';
 
 import FlatButton from 'material-ui/lib/flat-button';
@@ -14,12 +13,11 @@ import Shareicon from 'material-ui/lib/svg-icons/social/share';
 export default class Post extends React.Component
 {
     static propTypes = {
-        post: React.PropTypes.object
+        post: React.PropTypes.object.isRequired
     };
 
     static defaultProps = {
         frameNumber: 0,
-        posts: []
     };
 
     styleButton = {
@@ -38,56 +36,62 @@ export default class Post extends React.Component
         alert('Share event');
     };
 
-    render() {
-        const post = this.props.post;
-        const timeElapsed = Math.ceil((Date.now() - new Date(post['created_time'])) / (60000 * 3600));
-        let iframe;
+    /**
+     * Render post content
+     * @returns {*[]}
+     */
+    renderPostContent() {
+        const {post} = this.props;
+        let content = [this.props.post.message];
 
-        // If post has link, add it in iframe
         if (post.link) {
-            iframe = (
+            content.push(
                 <iframe width="465" height="315" src={post.link} frameBorder="0" allowFullScreen></iframe>
             );
         }
 
+        return content;
+    }
+
+    render() {
+        const post = this.props.post;
+        const timeElapsed = Math.ceil((Date.now() - new Date(post['created_time'])) / (60000 * 3600));
+
         return (
             <HTML3D {...this.props}>
-                <ReactCSSTransitionGroup transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName="post" transitionAppear={true} transitionAppearTimeout={500}>
-                        <Card style={{width: '500px', opacity: 0.9 }} initiallyExpanded={true}>
-                            <CardHeader
-                                title={post.from.name}
-                                subtitle={timeElapsed + " h"}
-                                actAsExpander={true}
-                                showExpandableButton={true}
-                                initiallyExpanded={true}
-                                avatar="https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-1/c16.19.155.155/s32x32/380108_2617196464115_1292327190_n.jpg?oh=f3e5a7f5e96e5f7851f5b09e85010bbe&oe=57A276FF"
-                                />
-                                <CardText expandable={true} initiallyExpanded={true}>
-                                    {this.props.post.message}
-                                    {iframe}
-                                </CardText>
-                                <CardActions expandable={true}>
-                                    <FlatButton
-                                        label="Like"
-                                        onClick={this.onLike}
-                                        icon={<LikeIcon />}
-                                        style={this.styleButton}
-                                    />
-                                <FlatButton
-                                    label="Comment"
-                                    onClick={this.onComment}
-                                    icon={<CommentIcon />}
-                                    style={this.styleButton}
-                                />
-                                <FlatButton
-                                    label="Share"
-                                    onClick={this.onShare}
-                                    icon={<Shareicon />}
-                                    style={this.styleButton}
-                                />
-                            </CardActions>
-                        </Card>
-                </ReactCSSTransitionGroup>
+                <Card style={{width: '500px', opacity: 0.9 }} initiallyExpanded={true}>
+                    <CardHeader
+                        title={post.from.name}
+                        subtitle={timeElapsed + " h"}
+                        actAsExpander={true}
+                        showExpandableButton={true}
+                        initiallyExpanded={true}
+                        avatar="https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-1/c16.19.155.155/s32x32/380108_2617196464115_1292327190_n.jpg?oh=f3e5a7f5e96e5f7851f5b09e85010bbe&oe=57A276FF"
+                        />
+                        <CardText expandable={true} initiallyExpanded={true}>
+                            {this.renderPostContent()}
+                        </CardText>
+                        <CardActions expandable={true}>
+                            <FlatButton
+                                label="Like"
+                                onClick={this.onLike}
+                                icon={<LikeIcon />}
+                                style={this.styleButton}
+                            />
+                        <FlatButton
+                            label="Comment"
+                            onClick={this.onComment}
+                            icon={<CommentIcon />}
+                            style={this.styleButton}
+                        />
+                        <FlatButton
+                            label="Share"
+                            onClick={this.onShare}
+                            icon={<Shareicon />}
+                            style={this.styleButton}
+                        />
+                    </CardActions>
+                </Card>
             </HTML3D>
         );
     }
